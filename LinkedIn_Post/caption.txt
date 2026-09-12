@@ -1,0 +1,29 @@
+I’m excited to share my first complete ASIC RTL-to-GDS project: a 32-bit hierarchical Vedic Multiplier.
+
+I implemented and verified the multiplier using an open-source ASIC flow on Ubuntu through WSL.
+
+Tools and technology:
+• Icarus Verilog for RTL simulation
+• GTKWave for waveform analysis
+• Yosys for logic synthesis
+• OpenSTA/OpenROAD for timing, power, and physical design
+• Nangate45 / FreePDK45 45 nm technology
+• KLayout for GDS inspection
+
+Key results:
+• 1,007/1,007 RTL tests passed
+• 1,007/1,007 gate-level tests passed
+• Die area: 360 × 380 µm
+• Core utilization: 12%
+• Routing DRC violations: 0
+• Antenna violations: 0
+• Estimated power: 95.4 mW
+
+During the project, I identified and corrected a carry-chain issue in the 32-bit ripple-carry adder and updated older OpenROAD commands for compatibility with the current tool version.
+
+The current design has a small post-route setup violation of −0.042 ns and several slew/capacitance violations. Optimizing these will be the next stage of my learning.
+
+GitHub:
+https://github.com/Bhavesh7853/32Bit-Vedic-Multiplier-RTL-to-GDS
+
+#VLSI #ASIC #RTL2GDS #OpenROAD #Yosys #Verilog #VedicMultiplier #PhysicalDesign #StaticTimingAnalysis #Semiconductor

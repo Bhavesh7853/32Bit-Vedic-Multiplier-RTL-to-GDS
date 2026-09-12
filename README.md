@@ -23,7 +23,7 @@ The self-checking testbench compares the DUT output with Verilog multiplication 
 
 ## Physical-design results
 
-Technology: Nangate45 / FreePDK45
+Technology node: 45 nm using Nangate45 / FreePDK45
 
 | Metric | Result |
 |---|---:|
