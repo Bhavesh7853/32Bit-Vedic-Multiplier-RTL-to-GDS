@@ -41,9 +41,39 @@ Technology: Nangate45 / FreePDK45
 
 The design is combinational. `top.sdc` uses a 10 ns virtual clock for input/output timing constraints, so clock-tree synthesis has no physical clock net to build. The final run still reports a small setup violation and maximum slew/capacitance violations on high-fanout nets. This repository therefore documents a completed educational RTL-to-GDS run rather than a signoff-clean tapeout.
 
-## Final OpenROAD view
+## Implementation gallery
 
-![Corrected routed Vedic multiplier](Results/final_openroad_corrected.png)
+All screenshots below were captured during this WSL/OpenROAD project run. Reference and YouTube images are intentionally excluded.
+
+### 1. Starting the physical-design flow
+
+OpenROAD reads the Nangate45 technology LEF, standard-cell LEF, synthesized multiplier netlist, and timing constraints. It then creates the die/core floorplan and standard-cell rows.
+
+![OpenROAD physical-design flow starting in Ubuntu](Results/process/01_openroad_flow_start.png)
+
+### 2. Floorplan and placement rows
+
+The outer white boundary is the 360 × 380 µm die. The inner region is the placement core. The horizontal blue lines are standard-cell rows, while the arrows around the boundary represent input and output pins.
+
+![Vedic multiplier floorplan and placement rows](Results/process/02_floorplan_rows.png)
+
+### 3. Global placement
+
+Global placement assigns approximate positions to the synthesized standard cells while minimizing wire length and congestion. Cells are visible across the usable core, and whitespace remains because utilization is approximately 12%.
+
+![Vedic multiplier after global placement](Results/process/03_global_placement.png)
+
+### 4. Routing compatibility issue found during the run
+
+An older flow script used the deprecated `-bottom_routing_layer` option. OpenROAD stopped at detailed routing with `DRT-0511`. The script was updated to use the current routing-layer setup, after which the flow completed.
+
+![OpenROAD deprecated routing-option error](Results/process/04_routing_option_debug.png)
+
+### 5. Final placed and routed layout
+
+The final OpenROAD view shows placed standard cells, the power grid, routed signal metals, and boundary pins. Its appearance differs from older OpenROAD demonstrations because placement decisions, routing, tool version, hierarchy colors, and display settings can vary.
+
+![Final routed 32-bit Vedic multiplier](Results/process/05_final_routed_layout.png)
 
 ## Run RTL verification
 
