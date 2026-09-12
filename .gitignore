@@ -1,0 +1,27 @@
+# Simulation products
+*.vvp
+*.vcd
+
+# Generated OpenROAD databases and large intermediate data
+*.db
+*.odb
+*.spef
+*.route_guide
+Physical_Design/post_detailed_placement.*
+Physical_Design/final_report.txt
+Physical_Design/results/*
+Timing_Power_Checks/Results/*
+
+# Logs generated during local runs
+*.log
+
+# Editor and OS files
+*~
+.DS_Store
+Thumbs.db
+
+# Keep final exchange/layout deliverables and reports
+!Physical_Design/results/Vedic32_final.def
+!Physical_Design/results/Vedic32_final.gds
+!Physical_Design/results/*drc*.rpt
+!Physical_Design/results/final_summary.txt

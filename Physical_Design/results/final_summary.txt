@@ -1,0 +1,32 @@
+32-bit Vedic Multiplier - Corrected RTL-to-GDS Run
+==================================================
+
+Functional verification
+  RTL:        1007/1007 multiplication tests passed
+  Gate-level: 1007/1007 multiplication tests passed
+
+Technology and floorplan
+  Platform:         Nangate45 / FreePDK45
+  Die area:         360 x 380 um
+  Core area:        (15,20) to (330,340) um
+  Design area:      12006 um^2
+  Core utilization: 12%
+
+Physical verification
+  Detailed-routing DRC violations: 0
+  Antenna net violations:           0
+  Antenna pin violations:           0
+
+Post-route timing with a 10 ns virtual clock
+  Hold slack: +3.044 ns
+  Setup WNS:  -0.042 ns
+  Setup TNS:  -0.042 ns
+
+Power estimate
+  Total: 95.4 mW
+
+Known limitations
+  - The design is combinational, so there is no physical clock tree.
+  - One small setup violation remains after routing.
+  - Maximum slew and capacitance violations remain on high-fanout nets.
+  - This is an educational implementation and is not signoff-clean for tapeout.
