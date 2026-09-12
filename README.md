@@ -12,6 +12,22 @@ The multiplier follows a recursive structure based on the Urdhva Tiryagbhyam (ve
 - OpenSTA through OpenROAD: timing and power reporting
 - OpenROAD: floorplanning, PDN, placement, routing, extraction, and reporting
 - KLayout: final GDS viewing and validation
+- Tcl scripts: repeatable flow automation
+- Ubuntu on Windows Subsystem for Linux (WSL): Linux execution environment
+
+## RTL-to-GDSII flow covered
+
+1. Hierarchical Verilog RTL design for the 32-bit multiplier
+2. Self-checking functional verification with directed and pseudorandom vectors
+3. Logic synthesis, technology mapping, design checks, and netlist generation in Yosys
+4. Timing constraints using a 10 ns virtual clock in `top.sdc`
+5. Design initialization and a 360 × 380 µm floorplan
+6. Power-delivery-network generation and boundary pin placement
+7. Global placement, timing repair, and detailed placement
+8. CTS stage evaluation; no tree is created because the design contains no sequential clock network
+9. Global routing, detailed routing, antenna checking, filler insertion, and parasitic extraction
+10. Post-route timing and power analysis
+11. Final DEF and GDSII generation and inspection in KLayout
 
 ## Verification
 
@@ -45,31 +61,37 @@ The design is combinational. `top.sdc` uses a 10 ns virtual clock for input/outp
 
 All screenshots below were captured during this WSL/OpenROAD project run. Reference and YouTube images are intentionally excluded.
 
-### 1. Starting the physical-design flow
+### 1. Logic synthesis
+
+The Yosys schematic shows the hierarchical 32-bit multiplier architecture. Four 16 × 16 Vedic multiplier blocks generate partial products, and three 32-bit ripple-carry adders combine them into the 64-bit product.
+
+![Yosys hierarchical logic-synthesis schematic](Results/process/00_logic_synthesis.png)
+
+### 2. Starting the physical-design flow
 
 OpenROAD reads the Nangate45 technology LEF, standard-cell LEF, synthesized multiplier netlist, and timing constraints. It then creates the die/core floorplan and standard-cell rows.
 
 ![OpenROAD physical-design flow starting in Ubuntu](Results/process/01_openroad_flow_start.png)
 
-### 2. Floorplan and placement rows
+### 3. Floorplan and placement rows
 
 The outer white boundary is the 360 × 380 µm die. The inner region is the placement core. The horizontal blue lines are standard-cell rows, while the arrows around the boundary represent input and output pins.
 
 ![Vedic multiplier floorplan and placement rows](Results/process/02_floorplan_rows.png)
 
-### 3. Global placement
+### 4. Global placement
 
 Global placement assigns approximate positions to the synthesized standard cells while minimizing wire length and congestion. Cells are visible across the usable core, and whitespace remains because utilization is approximately 12%.
 
 ![Vedic multiplier after global placement](Results/process/03_global_placement.png)
 
-### 4. Routing compatibility issue found during the run
+### 5. Routing compatibility issue found during the run
 
 An older flow script used the deprecated `-bottom_routing_layer` option. OpenROAD stopped at detailed routing with `DRT-0511`. The script was updated to use the current routing-layer setup, after which the flow completed.
 
 ![OpenROAD deprecated routing-option error](Results/process/04_routing_option_debug.png)
 
-### 5. Final placed and routed layout
+### 6. Final placed and routed layout
 
 The final OpenROAD view shows placed standard cells, the power grid, routed signal metals, and boundary pins. Its appearance differs from older OpenROAD demonstrations because placement decisions, routing, tool version, hierarchy colors, and display settings can vary.
 

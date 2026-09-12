@@ -1,29 +1,50 @@
-I’m excited to share my first complete ASIC RTL-to-GDS project: a 32-bit hierarchical Vedic Multiplier.
+From RTL to GDSII: Open-Source ASIC Implementation of a 32-bit Vedic Multiplier
 
-I implemented and verified the multiplier using an open-source ASIC flow on Ubuntu through WSL.
+Over the past few days, I worked on my first complete ASIC implementation project, taking a hierarchical 32-bit unsigned Vedic multiplier from Verilog RTL through physical design and final GDSII using open-source tools on Ubuntu through WSL.
 
-Tools and technology:
-• Icarus Verilog for RTL simulation
-• GTKWave for waveform analysis
-• Yosys for logic synthesis
-• OpenSTA/OpenROAD for timing, power, and physical design
-• Nangate45 / FreePDK45 45 nm technology
-• KLayout for GDS inspection
+The design uses the Urdhva Tiryagbhyam multiplication structure. Four smaller Vedic multiplier blocks generate partial products at each level, while ripple-carry adders combine them to produce the final 64-bit result.
 
-Key results:
+Technology and tools:
+🔹 Nangate45 / FreePDK45 45 nm technology
+🔹 Icarus Verilog for RTL and gate-level simulation
+🔹 GTKWave for waveform inspection
+🔹 Yosys for logic synthesis and technology mapping
+🔹 OpenSTA through OpenROAD for timing and power analysis
+🔹 OpenROAD for floorplanning, PDN, placement, routing, extraction, and reporting
+🔹 KLayout for final GDSII inspection
+🔹 Tcl scripts for flow automation
+
+The work covered:
+✅ Hierarchical Verilog RTL design
+✅ Self-checking functional verification
+✅ Logic synthesis and gate-level netlist generation
+✅ Gate-level functional verification
+✅ Timing constraints using a 10 ns virtual clock
+✅ Design initialization and floorplanning
+✅ Power planning and I/O pin placement
+✅ Global placement, timing repair, and detailed placement
+✅ CTS-stage evaluation for the combinational design
+✅ Global and detailed routing
+✅ Parasitic extraction and post-route timing/power analysis
+✅ Routing DRC and antenna checks
+✅ Final DEF and GDSII generation
+
+Verification and implementation results:
 • 1,007/1,007 RTL tests passed
 • 1,007/1,007 gate-level tests passed
 • Die area: 360 × 380 µm
 • Core utilization: 12%
 • Routing DRC violations: 0
-• Antenna violations: 0
-• Estimated power: 95.4 mW
+• Antenna net and pin violations: 0
+• Estimated total power: 95.4 mW
 
-During the project, I identified and corrected a carry-chain issue in the 32-bit ripple-carry adder and updated older OpenROAD commands for compatibility with the current tool version.
+During the project, I found and corrected a carry-chain issue in the 32-bit ripple-carry adder. I also updated deprecated OpenROAD routing commands to make the flow work with the current tool version.
 
-The current design has a small post-route setup violation of −0.042 ns and several slew/capacitance violations. Optimizing these will be the next stage of my learning.
+The design is combinational, so it has no physical clock tree. A 10 ns virtual clock is used for interface timing analysis. The current post-route result has a small setup WNS/TNS of −0.042 ns and some high-fanout slew/capacitance violations, which I plan to optimize next.
+
+This project gave me practical exposure to the complete open-source ASIC flow and helped me understand how RTL decisions affect synthesis, timing, placement, routing, and final layout.
 
 GitHub:
 https://github.com/Bhavesh7853/32Bit-Vedic-Multiplier-RTL-to-GDS
 
-#VLSI #ASIC #RTL2GDS #OpenROAD #Yosys #Verilog #VedicMultiplier #PhysicalDesign #StaticTimingAnalysis #Semiconductor
+#ASICDesign #PhysicalDesign #VLSI #RTLtoGDSII #OpenROAD #Yosys #OpenSTA #KLayout #Verilog #StaticTimingAnalysis #VedicMultiplier #Semiconductor #ElectronicsEngineering
